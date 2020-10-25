@@ -29,5 +29,5 @@ export const user = createModel<RootModel>()({
 				dispatch.user.setUser(newUser)
 			},
 		}
-	},
+    }
 })
