@@ -1,19 +1,28 @@
 import axios from 'axios'
 
 type loginParams = {
-    email: string,
+    username: string,
     password: string
 }
 
-export const login = async ({email, password}:loginParams) => {
-    // fake Login
-    const username = 
-    setTimeout(function() {
-        return {
-            responseCode: 200,
-            jwt: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
-            id: 1,
-            username: email.split('@')[0]
-        }
-    }, 1000)
+export const loginApi = async ({username, password}:loginParams) => {
+    // after server on
+    const data = JSON.stringify({"username":username,"password":password})
+
+    const config:any = {
+        method: 'post',
+        url: 'http://127.0.0.1:5000/auth',
+        headers: { 
+            'Content-Type': 'application/json'
+        },
+        data : data
+    };
+
+    axios(config)
+    .then((response) => {
+        return (JSON.stringify(response.data))
+    })
+    .catch((error) => {
+        console.log(error)
+    })
 }
