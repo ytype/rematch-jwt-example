@@ -5,7 +5,8 @@ type loginParams = {
     password: string
 }
 
-export const loginApi = async ({username, password}:loginParams) => {
+
+export const loginApi = async ({username, password}:loginParams):Promise<string> => {
     // after server on
     const data = JSON.stringify({"username":username,"password":password})
 
@@ -18,11 +19,6 @@ export const loginApi = async ({username, password}:loginParams) => {
         data : data
     };
 
-    axios(config)
-    .then((response) => {
-        return (JSON.stringify(response.data))
-    })
-    .catch((error) => {
-        console.log(error)
-    })
+    const response = await axios(config)
+    return JSON.stringify(response.data.access_token)
 }
