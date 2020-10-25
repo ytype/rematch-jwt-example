@@ -1,18 +1,19 @@
 import { createModel } from '@rematch/core'
-import { useState } from 'react'
 import { RootModel } from './index'
+import { loginApi } from "../api/index"
+
+export type loginParms = {
+    username: string,
+    password: string
+}
 
 export type userState = {
-    jwt: string,
-    id: string,
-    username: string
+    jwt: string
 }
 
 export const user = createModel<RootModel>()({
 	state: {
-        jwt: '',
-        id: '',
-        username: ''
+        jwt: ''
     },
 	reducers: {
 		setUser: (state: userState, payload: userState) => {
@@ -20,11 +21,12 @@ export const user = createModel<RootModel>()({
         },
 	},
 	effects: (dispatch) => {
-		const { dolphins } = dispatch
 		return {
-			async incrementAsync(): Promise<void> {
-				await delay(500)
-				dolphins.increment(1)
+			async login(payload: loginParms) {
+				const newUser = {
+                    jwt: await loginApi(payload)
+                }
+				dispatch.user.setUser(newUser)
 			},
 		}
 	},
