@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_jwt import JWT, jwt_required, current_identity
 from werkzeug.security import safe_str_cmp
+from flask_cors import CORS
 
 class User(object):
     def __init__(self, id, username, password):
@@ -29,6 +30,7 @@ def identity(payload):
     return userid_table.get(user_id, None)
 
 app = Flask(__name__)
+CORS(app)
 app.debug = True
 app.config['SECRET_KEY'] = 'super-secret'
 
