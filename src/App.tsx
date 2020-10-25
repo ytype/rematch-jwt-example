@@ -16,8 +16,8 @@ type DispatchProps = ReturnType<typeof mapDispatch>
 type Props = StateProps & DispatchProps
 
 const App: React.FC<Props> = (props:Props) => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('user1')
+  const [password, setPassword] = useState('abcxyz')
 
   const inputHander = (event: React.ChangeEvent<HTMLInputElement>) => {
     if(event.target.name === "username") {
@@ -35,7 +35,7 @@ const App: React.FC<Props> = (props:Props) => {
       <input name="username" onChange={inputHander} value={username}></input>
       <label>password</label>
       <input name="password" onChange={inputHander} value={password}></input>
-      <button  onClick={()=>props.login({username,password})}>login</button>
+      <button  onClick={()=> props.login({username,password})}>login</button>
     </div>
   );
 }
